@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>03-a tag hacking</title>
+    <link rel="stylesheet" href="./style.css">
+</head>
+<body>
+    <a href="#abc">Click Me</a>
+    <!--link status:    unvisited   : chưa bấm vào link lần nào (blue) 
+                        active      : đang đè chuột (red)
+                        visited     : đã bấm vào rồi (purple)
+                        hover       : đưa chuột vào (none)
+    -->
+
+    <!-- demo các status của một thẻ a -->
+    <a class = "demo-btn" href="#">Click Me!</a>
+
+    <!-- ngta k sài tag button mà sài tag a  -->
+    <!-- dùng a làm nút -->
+    
+    <a class = "demo-btn1" href="mailto: ngothanhtu8989@gmail.com" >Send nude</a>
+
+    <!-- ./ là từ chỗ file đó nhìn xung quanh
+        ../ là đi ra thêm 1 lớp nữa 
+        alt là bổ nghĩa cho hình nếu hình bị hư   
+     -->
+    <a href="https://www.google.com/">
+        <img src="./fpt-logo.jpg" 
+            alt="fpt-logo" 
+            srcset="">   
+    </a>
+    
+</body>
+</html>
