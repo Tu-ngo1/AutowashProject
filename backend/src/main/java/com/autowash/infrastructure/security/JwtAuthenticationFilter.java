@@ -1,4 +1,4 @@
-package com.autowash.security;
+package com.autowash.infrastructure.security;
 
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;

@@ -1,8 +1,6 @@
 package com.autowash.entity;
 
-import com.autowash.enums.Role;
-import com.autowash.enums.UserStatus;
-import jakarta.persistence.CascadeType;
+import com.autowash.enums.VehicleSize;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
@@ -10,8 +8,8 @@ import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.OneToMany;
-import jakarta.persistence.OneToOne;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.PrePersist;
 import jakarta.persistence.PreUpdate;
 import jakarta.persistence.Table;
@@ -21,68 +19,40 @@ import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import lombok.ToString;
 
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.List;
 
 @Entity
-@Table(name = "USERS")
+@Table(name = "CARS")
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
-public class User {
+public class Car {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @EqualsAndHashCode.Include
     private Long id;
 
-    @Column(name = "User_code", unique = true)
-    private String userCode;
+    @ManyToOne
+    @JoinColumn(name = "user_id", nullable = false)
+    private User user;
 
-    @Column(unique = true)
-    private String username;
-
-    @Column(name = "Name", nullable = false)
-    private String fullName;
-
-    @Column(unique = true, nullable = false)
-    private String phone;
-
-    @Column(unique = true)
-    private String email;
-
-    @Column(nullable = false)
-    private String password;
+    @Column(name = "License_plate", nullable = false)
+    private String licensePlate;
 
     @Enumerated(EnumType.STRING)
-    @Column(nullable = false)
-    private Role role;
-
-    @Builder.Default
-    @Enumerated(EnumType.STRING)
-    @Column(nullable = false)
-    private UserStatus status = UserStatus.ACTIVE;
+    @Column(name = "Vehicle_size", nullable = false)
+    private VehicleSize vehicleSize;
 
     @Column(name = "Created_at")
     private LocalDateTime createdAt;
 
     @Column(name = "Updated_at")
     private LocalDateTime updatedAt;
-
-    @OneToOne(mappedBy = "user")
-    @ToString.Exclude
-    private CustomerProfile customerProfile;
-
-    @Builder.Default
-    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
-    @ToString.Exclude
-    private List<Car> cars = new ArrayList<>();
 
     @PrePersist
     void onCreate() {

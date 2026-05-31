@@ -1,6 +1,6 @@
-package com.autowash.dto;
+package com.autowash.dto.request;
 
-import com.autowash.entity.Role;
+import com.autowash.enums.Role;
 import lombok.Data;
 
 @Data

@@ -1,8 +1,8 @@
 package com.autowash.controller;
 
-import com.autowash.dto.AuthResponse;
-import com.autowash.dto.LoginRequest;
-import com.autowash.dto.RegisterRequest;
+import com.autowash.dto.response.AuthResponse;
+import com.autowash.dto.request.LoginRequest;
+import com.autowash.dto.request.RegisterRequest;
 import com.autowash.service.AuthService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;

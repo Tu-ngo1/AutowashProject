@@ -1,4 +1,4 @@
-package com.autowash.dto;
+package com.autowash.dto.response;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -8,6 +8,5 @@ import lombok.Data;
 public class AuthResponse {
 
     private String token;
-
     private String role;
 }

@@ -1,4 +1,4 @@
-package com.autowash.dto;
+package com.autowash.dto.request;
 
 import lombok.Data;
 
