@@ -1,4 +1,4 @@
-package com.autowash.security;
+package com.autowash.infrastructure.security;
 
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;

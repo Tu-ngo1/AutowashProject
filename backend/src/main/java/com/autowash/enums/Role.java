@@ -1,4 +1,5 @@
-package com.autowash.entity;
+package com.autowash.enums;
+
 public enum Role {
     ADMIN,
     CUSTOMER,

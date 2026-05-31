@@ -1,8 +1,7 @@
 package com.autowash.entity;
 
-import com.autowash.enums.Role;
-import com.autowash.enums.UserStatus;
-import jakarta.persistence.CascadeType;
+import com.autowash.enums.PaymentMethod;
+import com.autowash.enums.PaymentStatus;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
@@ -10,7 +9,7 @@ import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.OneToMany;
+import jakarta.persistence.JoinColumn;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.PrePersist;
 import jakarta.persistence.PreUpdate;
@@ -21,68 +20,59 @@ import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import lombok.ToString;
 
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.List;
 
 @Entity
-@Table(name = "USERS")
+@Table(name = "PAYMENTS")
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
-public class User {
+public class Payment {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @EqualsAndHashCode.Include
     private Long id;
 
-    @Column(name = "User_code", unique = true)
-    private String userCode;
+    @OneToOne
+    @JoinColumn(name = "booking_id", nullable = false, unique = true)
+    private Booking booking;
 
-    @Column(unique = true)
-    private String username;
-
-    @Column(name = "Name", nullable = false)
-    private String fullName;
-
-    @Column(unique = true, nullable = false)
-    private String phone;
-
-    @Column(unique = true)
-    private String email;
-
-    @Column(nullable = false)
-    private String password;
-
-    @Enumerated(EnumType.STRING)
-    @Column(nullable = false)
-    private Role role;
+    @OneToOne
+    @JoinColumn(name = "applied_voucher_id")
+    private CustomerVoucher appliedVoucher;
 
     @Builder.Default
     @Enumerated(EnumType.STRING)
-    @Column(nullable = false)
-    private UserStatus status = UserStatus.ACTIVE;
+    @Column(name = "Payment_status", nullable = false)
+    private PaymentStatus paymentStatus = PaymentStatus.PENDING;
+
+    @Enumerated(EnumType.STRING)
+    @Column(name = "Payment_method", nullable = false)
+    private PaymentMethod paymentMethod;
+
+    @Column(name = "Sub_total", nullable = false)
+    private Integer subTotal;
+
+    @Builder.Default
+    @Column(name = "Discount_amount", nullable = false)
+    private Integer discountAmount = 0;
+
+    @Column(name = "Final_price", nullable = false)
+    private Integer finalPrice;
+
+    @Column(name = "Paid_at")
+    private LocalDateTime paidAt;
 
     @Column(name = "Created_at")
     private LocalDateTime createdAt;
 
     @Column(name = "Updated_at")
     private LocalDateTime updatedAt;
-
-    @OneToOne(mappedBy = "user")
-    @ToString.Exclude
-    private CustomerProfile customerProfile;
-
-    @Builder.Default
-    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
-    @ToString.Exclude
-    private List<Car> cars = new ArrayList<>();
 
     @PrePersist
     void onCreate() {

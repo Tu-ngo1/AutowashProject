@@ -1,12 +1,12 @@
 package com.autowash.service;
 
-import com.autowash.dto.AuthResponse;
-import com.autowash.dto.LoginRequest;
-import com.autowash.dto.RegisterRequest;
-import com.autowash.entity.Role;
+import com.autowash.dto.response.AuthResponse;
+import com.autowash.dto.request.LoginRequest;
+import com.autowash.dto.request.RegisterRequest;
+import com.autowash.enums.Role;
 import com.autowash.entity.User;
 import com.autowash.repository.UserRepository;
-import com.autowash.security.JwtService;
+import com.autowash.infrastructure.security.JwtService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -37,7 +37,6 @@ public class AuthService {
                 .fullName(request.getFullName())
                 .phone(request.getPhone())
                 .password(passwordEncoder.encode(request.getPassword()))
-                .licensePlate(request.getLicensePlate())
                 .role(role)
                 .build();
 
